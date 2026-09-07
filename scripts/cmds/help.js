@@ -7,7 +7,7 @@ module.exports = {
     name: "help",
     aliases: ["menu", "commands"],
     version: "6.4",
-    author: "EryXenX",
+    author: "ur mom",
     shortDescription: "Show all commands",
     longDescription: "Show all commands in clean UI",
     category: "system",
@@ -63,7 +63,7 @@ module.exports = {
 
       const infoMsg =
 `┏━━━━━━━━━━━━━┓
- 🧩 𝐂𝐌𝐃 𝐈𝐍𝐅𝐎
+ 🧩 ncs kipe
 ┗━━━━━━━━━━━━━┛
  ✦ Name     : ${cmd.config.name}
  ✦ Aliases  : ${cmd.config.aliases?.join(", ") || "None"}
@@ -86,7 +86,7 @@ module.exports = {
     }
 
     let msg =
-`╭─ 𝐂𝐎𝐌𝐌𝐀𝐍𝐃𝐒 𝐌𝐄𝐍𝐔
+`╭─ KIPE MENU
 ├ Prefix : ${prefix}
 ├ Total  : ${allCommands.size}
 ├ Author : EryXenX\n`;
