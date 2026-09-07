@@ -18,7 +18,7 @@ module.exports = {
   onStart: async function ({ api, event }) {
     const ownerText = 
 `╭─ 👑 Oᴡɴᴇʀ Iɴғᴏ 👑 ─╮
-│ 👤 Nᴀᴍᴇ       : Mᴏʜᴀᴍᴍᴀᴅ Aᴋᴀsʜ
+│ 👤 Nᴀᴍᴇ       : kipe
 │ 🧸 Nɪᴄᴋ       : Aᴋᴀsʜ
 │ 🎂 Aɢᴇ        : 18+
 │ 💘 Rᴇʟᴀᴛɪᴏɴ : Sɪɴɢʟᴇ
@@ -26,9 +26,9 @@ module.exports = {
 │ 📚 Eᴅᴜᴄᴀᴛɪᴏɴ : Iɴᴛᴇʀ 2ɴᴅ Yᴇᴀʀ
 │ 🏡 Lᴏᴄᴀᴛɪᴏɴ : 𝐃𝐡𝐚𝐤𝐚 - 𝐆𝐚𝐳𝐢𝐩𝐮𝐫
 ├─ 🔗 Cᴏɴᴛᴀᴄᴛ ─╮
-│ 📘 Facebook  : fb.com/akashx404 
+│ 📘 Facebook  : kipe
 │ 💬 Messenger: m.me/akashx404 
-│ 📞 WhatsApp  : wa.me/01933165880
+│ 📞 WhatsApp  : wa.me/0705904250
 ╰────────────────╯`;
 
     const cacheDir = path.join(__dirname, "cache");
