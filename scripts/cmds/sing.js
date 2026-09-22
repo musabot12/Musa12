@@ -1,80 +1,251 @@
 const axios = require("axios");
 
-const mahmud = async () => {
-        const base = await axios.get("https://raw.githubusercontent.com/mahmudx7/HINATA/main/baseApiUrl.json");
-        return base.data.mahmud;
-};
+async function getMusaAPI() {
+	try {
+		const base = await axios.get(
+			"https://raw.githubusercontent.com/mahmudx7/HINATA/main/baseApiUrl.json",
+			{ timeout: 15000 }
+		);
+
+		return base.data?.mahmud;
+	} catch (error) {
+		throw new Error("API Base URL পাওয়া যায়নি");
+	}
+}
 
 module.exports = {
-        config: {
-                name: "sing",
-                version: "1.7",
-                author: "MahMUD",
-                countDown: 10,
-                role: 0,
-                description: {
-                        bn: "যেকোনো গান সার্চ করে অডিও ফাইল ডাউনলোড করুন",
-                        en: "Search and download any song as an audio file",
-                        vi: "Tìm kiếm và tải xuống bất kỳ bài hát nào dưới dạng tệp âm thanh"
-                },
-                category: "music",
-                guide: {
-                        bn: '   {pn} <গানের নাম>: গান ডাউনলোড করতে নাম লিখুন',
-                        en: '   {pn} <song name>: Enter song name to download',
-                        vi: '   {pn} <tên bài hát>: Nhập tên bài hát để tải xuống'
-                }
-        },
+	config: {
+		name: "sing",
+		version: "2.0",
+		author: "Atif Irfan Musa",
+		countDown: 10,
+		role: 0,
 
-        langs: {
-                bn: {
-                        noInput: "× বেবি, গানের নাম তো দাও! 🎵\nউদাহরণ: {pn} shape of you",
-                        success: "✅ | এই নাও তোমার গান বেবি <😘\n• 𝐒𝐨𝐧𝐠: %1",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact MahMUD।"
-                },
-                en: {
-                        noInput: "× Baby, please provide a song name! 🎵\nExample: {pn} shape of you",
-                        success: "✅ | Here's your requested song baby <😘\n• 𝐒𝐨𝐧𝐠: %1",
-                        error: "× API error: %1. Contact MahMUD for help."
-                },
-                vi: {
-                        noInput: "× Cưng ơi, vui lòng cung cấp tên bài hát! 🎵\nVí dụ: {pn} shape of you",
-                        success: "✅ | Bài hát của cưng đây <😘\n• 𝐁𝐚̀𝐢 𝐡𝐚́𝐭: %1",
-                        error: "× Lỗi: %1. Liên hệ MahMUD để hỗ trợ."
-                }
-        },
+		description: {
+			bn: "যেকোনো গান সার্চ করে অডিও ডাউনলোড করুন",
+			en: "Search and download any song as an audio file"
+		},
 
-        onStart: async function ({ api, event, args, message, getLang }) {
-                const authorName = String.fromCharCode(77, 97, 104, 77, 85, 68);
-                if (this.config.author !== authorName) {
-                        return api.sendMessage("You are not authorized to change the author name.", event.threadID, event.messageID);
-                }
+		category: "music",
 
-                const query = args.join(" ");
-                if (!query) return message.reply(getLang("noInput"));
+		guide: {
+			bn:
+				"🎵 {pn} <গানের নাম>\n\n"
+				+ "উদাহরণ:\n"
+				+ "{pn} shape of you",
 
-                try {
-                        api.setMessageReaction("⌛", event.messageID, () => {}, true);
+			en:
+				"🎵 {pn} <song name>\n\n"
+				+ "Example:\n"
+				+ "{pn} shape of you"
+		}
+	},
 
-                        const baseUrl = await mahmud();
-                        const apiUrl = `${baseUrl}/api/song/mahmud?query=${encodeURIComponent(query)}`;
+	langs: {
+		bn: {
 
-                        const response = await axios({
-                                method: "GET",
-                                url: apiUrl,
-                                responseType: "stream"
-                        });
+			noInput:
+				`╭━━━〔 🎵 MUSA MUSIC 〕━━━╮
+┃
+┃ ⚠️ গানের নাম লিখুন।
+┃
+┃ 📌 উদাহরণ:
+┃ ${global.GoatBot?.config?.prefix || ""}sing shape of you
+┃
+╰━━━━━━━━━━━━━━━━━━━━╯`,
 
-                        return message.reply({
-                                body: getLang("success", query),
-                                attachment: response.data
-                        }, () => {
-                                api.setMessageReaction("🪽", event.messageID, () => {}, true);
-                        });
+			searching:
+				`╭━━━〔 🎧 MUSA MUSIC 〕━━━╮
+┃
+┃ 🔎 গান খোঁজা হচ্ছে...
+┃ ⏳ একটু অপেক্ষা করুন।
+┃
+╰━━━━━━━━━━━━━━━━━━━━╯`,
 
-                } catch (err) {
-                        console.error("Sing Error:", err);
-                        api.setMessageReaction("❌", event.messageID, () => {}, true);
-                        return message.reply(getLang("error", err.message));
-                }
-        }
+			success:
+				`╭━━━〔 🎵 MUSA MUSIC 〕━━━╮
+┃
+┃ ✅ গান প্রস্তুত!
+┃
+┃ 🎶 Song: %1
+┃
+┃ 🎧 Audio attached below
+┃
+╰━━━━━━━━━━━━━━━━━━━━╯
+👑 Atif Irfan Musa
+✨ MUSA BOT`,
+
+			error:
+				`╭━━━〔 ❌ MUSA MUSIC 〕━━━╮
+┃
+┃ গানটি ডাউনলোড করা যায়নি।
+┃
+┃ ⚠️ Error: %1
+┃
+┃ 🔄 অন্য গান দিয়ে চেষ্টা করুন।
+┃
+╰━━━━━━━━━━━━━━━━━━━━╯`
+		},
+
+		en: {
+
+			noInput:
+				`╭━━━〔 🎵 MUSA MUSIC 〕━━━╮
+┃
+┃ ⚠️ Please enter a song name.
+┃
+┃ Example:
+┃ ${global.GoatBot?.config?.prefix || ""}sing shape of you
+┃
+╰━━━━━━━━━━━━━━━━━━━━╯`,
+
+			searching:
+				`╭━━━〔 🎧 MUSA MUSIC 〕━━━╮
+┃
+┃ 🔎 Searching for your song...
+┃ ⏳ Please wait.
+┃
+╰━━━━━━━━━━━━━━━━━━━━╯`,
+
+			success:
+				`╭━━━〔 🎵 MUSA MUSIC 〕━━━╮
+┃
+┃ ✅ Song ready!
+┃
+┃ 🎶 Song: %1
+┃
+┃ 🎧 Audio attached below
+┃
+╰━━━━━━━━━━━━━━━━━━━━╯
+👑 Atif Irfan Musa
+✨ MUSA BOT`,
+
+			error:
+				`╭━━━〔 ❌ MUSA MUSIC 〕━━━╮
+┃
+┃ Could not download the song.
+┃
+┃ ⚠️ Error: %1
+┃
+┃ 🔄 Try another song.
+┃
+╰━━━━━━━━━━━━━━━━━━━━╯`
+		}
+	},
+
+	onStart: async function ({
+		api,
+		event,
+		args,
+		message,
+		getLang
+	}) {
+
+		const query = args.join(" ").trim();
+
+		if (!query) {
+			return message.reply(
+				getLang("noInput")
+			);
+		}
+
+		try {
+
+			// Loading reaction
+			api.setMessageReaction(
+				"⏳",
+				event.messageID,
+				() => {},
+				true
+			);
+
+			// Searching message
+			const loading = await message.reply(
+				getLang("searching")
+			);
+
+			// Get API
+			const baseUrl = await getMusaAPI();
+
+			if (!baseUrl) {
+				throw new Error(
+					"Music API unavailable"
+				);
+			}
+
+			const apiUrl =
+				`${baseUrl}/api/song/mahmud?query=${encodeURIComponent(query)}`;
+
+			// Download audio stream
+			const response = await axios({
+				method: "GET",
+				url: apiUrl,
+				responseType: "stream",
+				timeout: 60000,
+				headers: {
+					"User-Agent":
+						"MUSA-BOT/2.0"
+				}
+			});
+
+			if (
+				!response.data ||
+				!response.headers
+			) {
+				throw new Error(
+					"Audio data পাওয়া যায়নি"
+				);
+			}
+
+			// Send audio
+			await message.reply({
+				body: getLang(
+					"success",
+					query
+				),
+
+				attachment:
+					response.data
+
+			});
+
+			// Success reaction
+			api.setMessageReaction(
+				"🎵",
+				event.messageID,
+				() => {},
+				true
+			);
+
+			// Remove loading message
+			if (loading?.messageID) {
+				setTimeout(() => {
+					api.unsendMessage(
+						loading.messageID
+					).catch(() => {});
+				}, 1000);
+			}
+
+		} catch (error) {
+
+			console.error(
+				"MUSA SING ERROR:",
+				error
+			);
+
+			api.setMessageReaction(
+				"❌",
+				event.messageID,
+				() => {},
+				true
+			);
+
+			return message.reply(
+				getLang(
+					"error",
+					error.message || "Unknown error"
+				)
+			);
+		}
+	}
 };
