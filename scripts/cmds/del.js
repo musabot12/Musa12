@@ -1,5 +1,5 @@
 const config = {
-  name: "murghi",
+  name: "murgi",
   version: "1.0",
   author: "Atif Irfan Musa",
   countDown: 3,
