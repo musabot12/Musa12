@@ -2,12 +2,13 @@ const axios = require("axios");
 
 module.exports.config = {
   name: "quiz",
-  version: "2.0",
-  author: "EryXenX",
+  version: "2.1",
+  author: "Atif Irfan Musa",
   role: 0,
   category: "economy",
   countDown: 10,
-  shortDescription: "Answer quiz questions to earn money",
+  shortDescription: "Play quiz and earn money",
+  longDescription: "Answer random quiz questions and earn MUSA BOT coins.",
   guide: "{prefix}quiz"
 };
 
@@ -38,105 +39,301 @@ async function fetchQuestion(senderID) {
   const used = usedQuestions.get(senderID) || new Set();
 
   for (let attempt = 0; attempt < 5; attempt++) {
-    const res = await axios.get("https://opentdb.com/api.php?amount=5&type=multiple");
+    const res = await axios.get(
+      "https://opentdb.com/api.php?amount=5&type=multiple",
+      { timeout: 15000 }
+    );
+
     const results = res.data?.results;
-    if (!results) continue;
+
+    if (!Array.isArray(results) || !results.length)
+      continue;
 
     for (const item of results) {
       const question = decodeHTML(item.question);
-      if (used.has(question)) continue;
+
+      if (used.has(question))
+        continue;
 
       const correct = decodeHTML(item.correct_answer);
       const wrong = item.incorrect_answers.map(decodeHTML);
-      const allOptions = shuffle([correct, ...wrong]);
+
+      const allOptions = shuffle([
+        correct,
+        ...wrong
+      ]);
+
       const labels = ["A", "B", "C", "D"];
-      const answerLabel = labels[allOptions.indexOf(correct)];
-      const options = allOptions.map((opt, i) => `${labels[i]}. ${opt}`);
+      const answerLabel =
+        labels[allOptions.indexOf(correct)];
+
+      const options = allOptions.map(
+        (opt, i) => `${labels[i]}. ${opt}`
+      );
 
       used.add(question);
+
       if (used.size > 200) {
         const first = used.values().next().value;
         used.delete(first);
       }
+
       usedQuestions.set(senderID, used);
 
-      return { question, options, answer: answerLabel };
+      return {
+        question,
+        options,
+        answer: answerLabel
+      };
     }
   }
 
   return null;
 }
 
-module.exports.onStart = async function ({ api, event, usersData }) {
-  const { senderID, threadID, messageID } = event;
+module.exports.onStart = async function ({
+  api,
+  event
+}) {
+  const {
+    senderID,
+    threadID,
+    messageID
+  } = event;
 
   let quizData;
+
   try {
     quizData = await fetchQuestion(senderID);
-  } catch (e) {
-    return api.sendMessage("❌ Failed to fetch question. Try again later.", threadID, messageID);
+  } catch (error) {
+    console.error("MUSA QUIZ ERROR:", error);
+
+    return api.sendMessage(
+      `╭━━━〔 ❌ MUSA QUIZ 〕━━━╮
+┃
+┃ ⚠️ Quiz question load করা যায়নি।
+┃
+┃ 🔄 কিছুক্ষণ পরে আবার চেষ্টা করুন।
+┃
+╰━━━━━━━━━━━━━━━━━━━━╯`,
+      threadID,
+      messageID
+    );
   }
 
-  if (!quizData)
-    return api.sendMessage("❌ Could not get a new question. Try again later.", threadID, messageID);
+  if (!quizData) {
+    return api.sendMessage(
+      `╭━━━〔 ⚠️ MUSA QUIZ 〕━━━╮
+┃
+┃ নতুন প্রশ্ন পাওয়া যায়নি।
+┃
+┃ 🔄 আবার চেষ্টা করুন।
+┃
+╰━━━━━━━━━━━━━━━━━━━━╯`,
+      threadID,
+      messageID
+    );
+  }
 
   const msg =
-`📝 QUIZ TIME!
-
-❓ ${quizData.question}
+`╭━━━〔 🧠 MUSA QUIZ 〕━━━╮
+┃
+┃ ❓ ${quizData.question}
+┃
+╰━━━━━━━━━━━━━━━━━━━━╯
 
 ${quizData.options.join("\n")}
 
-⏱ Reply with A, B, C or D
-✅ Correct → +500$
-❌ Wrong → -50$`;
+╭━━━〔 💰 REWARD 〕━━━╮
+┃
+┃ ⏱️ Reply: A / B / C / D
+┃
+┃ ✅ Correct → +500$
+┃ ❌ Wrong → -50$
+┃
+┃ ⌛ Time: 60 Seconds
+┃
+╰━━━━━━━━━━━━━━━━━━━━╯
 
-  api.sendMessage(msg, threadID, (err, info) => {
-    if (err) return;
-    global.GoatBot.onReply.set(info.messageID, {
-      commandName: "quiz",
-      messageID: info.messageID,
-      answer: quizData.answer,
-      senderID
-    });
+⚡ Powered by MUSA BOT
+👑 Atif Irfan Musa`;
 
-    setTimeout(() => {
-      if (global.GoatBot.onReply.has(info.messageID)) {
-        global.GoatBot.onReply.delete(info.messageID);
-        api.unsendMessage(info.messageID);
+  api.sendMessage(
+    msg,
+    threadID,
+    (err, info) => {
+      if (err) {
+        console.error("MUSA QUIZ SEND ERROR:", err);
+        return;
       }
-    }, 60000);
-  }, messageID);
+
+      global.GoatBot.onReply.set(
+        info.messageID,
+        {
+          commandName: "quiz",
+          messageID: info.messageID,
+          answer: quizData.answer,
+          senderID
+        }
+      );
+
+      setTimeout(() => {
+        if (
+          global.GoatBot.onReply.has(info.messageID)
+        ) {
+          global.GoatBot.onReply.delete(info.messageID);
+
+          api.sendMessage(
+            `⏰ Quiz Time Out!
+
+❌ সময় শেষ হয়ে গেছে।
+🔄 আবার ${global.GoatBot.config?.prefix || ""}quiz দিয়ে খেলুন।
+
+👑 MUSA BOT`,
+            threadID
+          );
+
+          api.unsendMessage(info.messageID);
+        }
+      }, 60000);
+    },
+    messageID
+  );
 };
 
-module.exports.onReply = async function ({ api, event, usersData, Reply }) {
-  const { senderID, threadID, messageID, body } = event;
-  const { answer } = Reply;
+module.exports.onReply = async function ({
+  api,
+  event,
+  usersData,
+  Reply
+}) {
+  const {
+    senderID,
+    threadID,
+    messageID,
+    body
+  } = event;
 
-  const userAnswer = body.trim().toUpperCase();
+  const {
+    answer,
+    senderID: quizOwner
+  } = Reply;
 
-  if (!["A", "B", "C", "D"].includes(userAnswer))
-    return api.sendMessage("⚠ Please reply with only A, B, C or D.", threadID, messageID);
+  // অন্য কেউ উত্তর দিলে
+  if (senderID !== quizOwner) {
+    return api.sendMessage(
+      `⚠️ এই Quiz টি অন্য একজনের জন্য ছিল।
 
-  global.GoatBot.onReply.delete(Reply.messageID);
-
-  const userData = await usersData.get(senderID);
-  let balance = userData?.data?.money ?? 100;
-
-  if (userAnswer === answer) {
-    balance += 500;
-    await usersData.set(senderID, { data: { ...userData.data, money: balance } });
-    api.sendMessage(
-      `✅ Correct! The answer was ${answer}\n💵 Won +500$\n💰 Balance: ${balance}$`,
-      threadID, messageID
+👤 শুধু Quiz শুরু করা ব্যক্তিই উত্তর দিতে পারবেন।`,
+      threadID,
+      messageID
     );
-  } else {
-    balance = Math.max(0, balance - 50);
-    await usersData.set(senderID, { data: { ...userData.data, money: balance } });
-    api.unsendMessage(Reply.messageID);
-    api.sendMessage(
-      `❌ Wrong! The correct answer was ${answer}\n💸 Lost -50$\n💰 Balance: ${balance}$`,
-      threadID, messageID
+  }
+
+  const userAnswer =
+    body.trim().toUpperCase();
+
+  if (
+    !["A", "B", "C", "D"].includes(userAnswer)
+  ) {
+    return api.sendMessage(
+      `⚠️ ভুল format!
+
+শুধু A, B, C অথবা D লিখে reply করুন।`,
+      threadID,
+      messageID
+    );
+  }
+
+  global.GoatBot.onReply.delete(
+    Reply.messageID
+  );
+
+  try {
+    const userData =
+      await usersData.get(senderID);
+
+    let balance =
+      userData?.data?.money ?? 100;
+
+    if (userAnswer === answer) {
+
+      balance += 500;
+
+      await usersData.set(senderID, {
+        data: {
+          ...(userData?.data || {}),
+          money: balance
+        }
+      });
+
+      return api.sendMessage(
+`╭━━━〔 🎉 CORRECT 〕━━━╮
+┃
+┃ ✅ উত্তর সঠিক!
+┃
+┃ 🧠 Answer: ${answer}
+┃ 💵 Won: +500$
+┃ 💰 Balance: ${balance}$
+┃
+╰━━━━━━━━━━━━━━━━━━━━╯
+
+👑 MUSA BOT
+✨ Atif Irfan Musa`,
+        threadID,
+        messageID
+      );
+
+    } else {
+
+      balance =
+        Math.max(0, balance - 50);
+
+      await usersData.set(senderID, {
+        data: {
+          ...(userData?.data || {}),
+          money: balance
+        }
+      });
+
+      api.unsendMessage(
+        Reply.messageID
+      );
+
+      return api.sendMessage(
+`╭━━━〔 ❌ WRONG ANSWER 〕━━━╮
+┃
+┃ ❌ তোমার উত্তর ভুল!
+┃
+┃ 🧠 Correct Answer: ${answer}
+┃ 💸 Lost: -50$
+┃ 💰 Balance: ${balance}$
+┃
+╰━━━━━━━━━━━━━━━━━━━━╯
+
+🔄 আবার খেলতে:
+${global.GoatBot.config?.prefix || ""}quiz
+
+👑 MUSA BOT`,
+        threadID,
+        messageID
+      );
+    }
+
+  } catch (error) {
+
+    console.error(
+      "MUSA QUIZ MONEY ERROR:",
+      error
+    );
+
+    return api.sendMessage(
+      `❌ টাকা আপডেট করতে সমস্যা হয়েছে।
+
+🔄 আবার চেষ্টা করুন।
+👑 MUSA BOT`,
+      threadID,
+      messageID
     );
   }
 };
