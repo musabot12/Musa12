@@ -1,295 +1,453 @@
 
-# 🌌 MUSA BOT — ATIF IRFAN MUSA
+<div align="center">
 
-<p align="center">
+<br>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00F5FF,50:8A2BE2,100:FF00FF&height=220&section=header&text=MUSA%20BOT&fontSize=60&fontColor=ffffff&animation=twinkling&fontAlignY=35"/>
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!--                         MUSA BOT                             -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
 
-</p>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00FFF0,25:00BFFF,50:7A2CFF,75:FF00E5,100:00FFF0&height=260&section=header&text=MUSA%20BOT&fontSize=78&fontColor=FFFFFF&animation=twinkling&fontAlignY=38&desc=ATIF%20IRFAN%20MUSA%20%E2%80%A2%20PREMIUM%20MESSENGER%20BOT&descAlignY=61&descSize=20"/>
 
-<p align="center">
+<br>
 
-<img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=700&size=24&duration=2500&pause=800&color=00F5FF&center=true&vCenter=true&width=700&lines=ATIF+IRFAN+MUSA;MUSA+BOT;PREMIUM+MESSENGER+BOT;MADE+WITH+PASSION+IN+BOGURA;SINGLE+LIFE+%7C+CLASS+10+%7C+SCIENCE"/>
+<img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=900&size=27&duration=2200&pause=700&color=00FFF0&center=true&vCenter=true&width=1000&height=70&lines=🤖+WELCOME+TO+MUSA+BOT;👑+ATIF+IRFAN+MUSA;⚡+PREMIUM+MESSENGER+BOT;💎+FAST+%E2%80%A2+SMART+%E2%80%A2+POWERFUL;🚀+MUSABOT12"/>
 
-</p>
+<br><br>
 
-<p align="center">
+<img src="https://img.shields.io/badge/╔═%20MUSA%20BOT%20═╗-00FFF0?style=for-the-badge&labelColor=050505"/>
+<img src="https://img.shields.io/badge/👑%20ATIF%20IRFAN%20MUSA-9B5CFF?style=for-the-badge&labelColor=050505"/>
+<img src="https://img.shields.io/badge/🐙%20MUSABOT12-FF00E5?style=for-the-badge&labelColor=050505"/>
 
-<img src="https://img.shields.io/badge/MUSA-BOT-00F5FF?style=for-the-badge&logo=messenger&logoColor=white"/>
-<img src="https://img.shields.io/badge/OWNER-ATIF%20IRFAN%20MUSA-8A2BE2?style=for-the-badge"/>
-<img src="https://img.shields.io/badge/CLASS-10-FF00FF?style=for-the-badge"/>
+<br><br>
+
+<img src="https://img.shields.io/badge/NODE.JS-18.x-339933?style=for-the-badge&logo=nodedotjs&logoColor=white"/>
 <img src="https://img.shields.io/badge/STATUS-ONLINE-00FF88?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/VERSION-2.0.0-00BFFF?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/DESIGN-ULTRA%20PREMIUM-FF00E5?style=for-the-badge"/>
 
-</p>
+<br><br>
+
+<a href="https://github.com/musabot12">
+<img src="https://img.shields.io/badge/🐙%20GITHUB-MUSABOT12-111111?style=for-the-badge&logo=github"/>
+</a>
+
+<a href="https://github.com/musabot12/musa-bot">
+<img src="https://img.shields.io/badge/📦%20REPOSITORY-MUSA--BOT-111111?style=for-the-badge&logo=github"/>
+</a>
+
+<br><br>
+
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=0:00FFF0,50:7A2CFF,100:FF00E5&height=5"/>
+
+</div>
 
 ---
 
-# 👑 ABOUT MUSA BOT
+<div align="center">
 
-> **MUSA BOT** is a customized Messenger bot project branded by **Atif Irfan Musa**.
+# ✦ 𝙈𝙐𝙎𝘼 𝘽𝙊𝙏 ✦
 
-A premium-style bot project with commands, utilities, automation, APIs, games, tools and many useful features.
+### `THE PERSONAL PREMIUM BOT EXPERIENCE`
 
-### ✨ PERSONAL BRAND
+<br>
+
+> **Built • Customized • Branded by Atif Irfan Musa**
+
+</div>
+
+---
+
+# 🌌 ◈ 01 — WELCOME TO MUSA WORLD
 
 ```text
-╔══════════════════════════════════════╗
-║              MUSA BOT                ║
-╠══════════════════════════════════════╣
-║ 👑 Owner  : Atif Irfan Musa          ║
-║ 📍 Home   : Bogura, Bangladesh       ║
-║ 🎓 Class  : 10                       ║
-║ 🔬 Group  : Science                  ║
-║ 💙 Life   : Single Life              ║
-║ 📱 Phone  : 01334501977              ║
-║ 🤖 Bot    : MUSA BOT                 ║
-╚══════════════════════════════════════╝
+╭──────────────────────────────────────────────────────────────╮
+│                                                              │
+│                    🤖  M U S A   B O T                      │
+│                                                              │
+│              ─────────────────────────────                   │
+│                                                              │
+│                    👑 ATIF IRFAN MUSA                        │
+│                                                              │
+│          ⚡ FAST     SMART     RELIABLE     POWERFUL         │
+│                                                              │
+│                  🐙 GITHUB : MUSABOT12                       │
+│                                                              │
+│                 📍 BOGURA • BANGLADESH                       │
+│                                                              │
+╰──────────────────────────────────────────────────────────────╯
+
+MUSA BOT is a personalized Messenger bot project with a strong custom identity, organized command architecture and premium visual presentation.
+
+The project is branded around:
+
+ATIF IRFAN MUSA
 
 
 ---
 
-🌈 MUSA BOT FEATURES
+💠 ◈ 02 — MUSA IDENTITY
 
-✨ Messenger Bot System
-⚡ Fast Command Processing
-🤖 Automatic Replies
-🎮 Games & Entertainment
-🛠️ Utility Commands
-📥 Download Tools
-🔍 Search Tools
-🌐 API Support
-📸 Image Tools
-🎵 Music Tools
-👥 Group Management
-🔐 Admin Controls
-📊 Bot Information
-💬 Custom Replies
-🔥 Premium UI Branding
+<div align="center">✦	INFORMATION	✦
+
+👑	Developer	Atif Irfan Musa
+🤖	Bot Name	MUSA BOT
+🐙	GitHub	musabot12
+📍	Location	Bogura, Bangladesh
+🎓	Class	10 • Science
+💫	Life	Single Life
+⚡	Brand	MUSA
+
+
+</div>
+---
+
+🚀 ◈ 03 — CORE FEATURES
+
+<div align="center">┌─────────────────────────────────────────────────┐
+│                                                 │
+│              🤖 MUSA BOT FEATURES               │
+│                                                 │
+├─────────────────────────────────────────────────┤
+│                                                 │
+│  ⚡  Fast Command Handler                       │
+│  🧠  Smart Command Architecture                │
+│  🛡️  Role Based Permission System              │
+│  👑  Bot Admin Controls                         │
+│  🌐  Multi Language Architecture               │
+│  🎨  Premium MUSA Branding                     │
+│  🔧  Flexible Configuration                     │
+│  🔄  Auto Restart Support                       │
+│  📡  Event Based System                         │
+│  💬  Message Processing                         │
+│                                                 │
+└─────────────────────────────────────────────────┘
+
+</div>
+---
+
+🎨 ◈ 04 — PREMIUM DESIGN
+
+✦ MUSA VISUAL IDENTITY
+
+╭──────────────────────────────╮
+        │                              │
+        │       ✦ MUSA BOT ✦           │
+        │                              │
+        │       ━━━━━━━━━━━━━━━        │
+        │                              │
+        │    👑 ATIF IRFAN MUSA        │
+        │                              │
+        │   ⚡ PREMIUM EXPERIENCE       │
+        │                              │
+        │      🐙 MUSABOT12            │
+        │                              │
+        ╰──────────────────────────────╯
+
+RGB BRAND COLORS
+
+🔵 CYAN
+🟣 PURPLE
+🩷 MAGENTA
+🟢 NEON GREEN
+🔷 ELECTRIC BLUE
 
 
 ---
 
-🧑‍💻 OWNER
+🧩 ◈ 05 — COMMAND SYSTEM
 
-👑 ATIF IRFAN MUSA
+Commands are organized inside:
 
-Name      : Atif Irfan Musa
-Nickname  : Musa
-Location  : Bogura, Bangladesh
-Class     : 10
-Department: Science
-Status    : Single Life
-Phone     : 01334501977
-Bot Name  : MUSA BOT
+scripts/
+│
+├── cmds/
+│   ├── hello.js
+│   ├── help.js
+│   └── ...
+│
+├── events/
+│
+└── languages/
+
+Example MUSA Command
+
+module.exports = {
+
+  config: {
+
+    name: "hello",
+
+    version: "1.0.0",
+
+    author: "Atif Irfan Musa",
+
+    countDown: 5,
+
+    role: 0,
+
+    shortDescription: "MUSA BOT Hello",
+
+    longDescription:
+      "Premium hello command for MUSA BOT",
+
+    category: "fun",
+
+    guide: "{prefix}hello"
+
+  },
+
+  onStart: async function ({ message }) {
+
+    message.reply(
+      "╭────────────────────╮\n" +
+      "│    🤖 MUSA BOT     │\n" +
+      "├────────────────────┤\n" +
+      "│  Hello Everyone! 👋│\n" +
+      "│                    │\n" +
+      "│ 👑 Atif Irfan Musa │\n" +
+      "╰────────────────────╯"
+    );
+
+  }
+
+};
 
 
 ---
 
-💎 MUSA BRANDING
+🛡️ ◈ 06 — PERMISSION SYSTEM
 
-███╗   ███╗██╗   ██╗███████╗ █████╗
-████╗ ████║██║   ██║██╔════╝██╔══██╗
-██╔████╔██║██║   ██║███████╗███████║
-██║╚██╔╝██║██║   ██║╚════██║██╔══██║
-██║ ╚═╝ ██║╚██████╔╝███████║██║  ██║
-╚═╝     ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
+<div align="center">ROLE	ACCESS
+
+0	🌍 Everyone
+1	👥 Group Admin
+2	👑 Bot Admin
+
+
+</div>
+---
+
+⚙️ ◈ 07 — CONFIGURATION
+
+{
+  "prefix": "-",
+
+  "adminBot": [
+    "YOUR_FACEBOOK_ID"
+  ],
+
+  "noPrefix": {
+    "enable": false
+  },
+
+  "reactUnsend": {
+    "enable": true,
+    "onlyAdmin": true,
+    "emojis": [
+      "😡"
+    ]
+  },
+
+  "optionsFca": {
+    "listenEvents": true,
+    "autoMarkDelivery": false,
+    "updatePresence": false,
+    "selfListen": false,
+    "autoReconnect": true
+  }
+}
 
 
 ---
 
-🚀 INSTALLATION
+📦 ◈ 08 — PROJECT STRUCTURE
 
-1️⃣ Clone Repository
+╭────────────────────────────────────────╮
+│             🤖 MUSA-BOT                │
+├────────────────────────────────────────┤
+│                                        │
+│  📁 scripts/                           │
+│  ├── 📁 cmds/                          │
+│  ├── 📁 events/                        │
+│  └── 📁 languages/                     │
+│                                        │
+│  📁 logger/                            │
+│                                        │
+│  📄 index.js                           │
+│  📄 package.json                       │
+│  📄 config.json                        │
+│  📄 README.md                          │
+│                                        │
+│  👑 ATIF IRFAN MUSA                   │
+│                                        │
+╰────────────────────────────────────────╯
+
+
+---
+
+🚀 ◈ 09 — INSTALLATION
+
+STEP 01
 
 git clone https://github.com/musabot12/musa-bot.git
 
-2️⃣ Enter Folder
+STEP 02
 
 cd musa-bot
 
-3️⃣ Install Dependencies
+STEP 03
 
 npm install
 
-4️⃣ Start Bot
-
-npm start
-
-
----
-
-⚙️ RUN COMMANDS
-
-Normal Start
+STEP 04
 
 node index.js
 
-Development
 
-npm run dev
+---
 
-Production
+🧠 ◈ 10 — API SHOWCASE
 
-npm run prod
+message.reply("Hello MUSA BOT");
+
+api.sendMessage(
+  "🤖 MUSA BOT is online!",
+  threadID
+);
+
+api.setMessageReaction(
+  "💚",
+  event.messageID,
+  () => {},
+  true
+);
+
+api.unsendMessage(messageID);
+
+api.getCurrentUserID();
+
+await api.getThreadInfo(threadID);
+
+await api.getUserInfo(userID);
 
 
 ---
 
-📂 PROJECT STRUCTURE
+💬 ◈ 11 — REPLY SYSTEM
 
-MUSA-BOT/
-│
-├── 📁 commands/
-├── 📁 events/
-├── 📁 scripts/
-├── 📁 utils/
-├── 📁 logger/
-├── 📁 languages/
-├── 📁 database/
-├── 📁 assets/
-│
-├── 📄 index.js
-├── 📄 EryXenX.js
-├── 📄 package.json
-├── 📄 config.json
-├── 📄 README.md
-│
-└── 📄 LICENSE
+const sent = await message.reply(
+  "💚 What's your name?"
+);
 
+global.GoatBot.onReply.set(
+  sent.messageID,
+  {
+    commandName: "mycommand",
+    messageID: sent.messageID,
+    author: event.senderID,
+    step: 1
+  }
+);
 
----
+onReply: async function ({
+  api,
+  event,
+  Reply,
+  message
+}) {
 
-🧩 COMMAND SYSTEM
+  if (
+    event.senderID !==
+    Reply.author
+  ) return;
 
-MUSA BOT supports a large collection of commands.
+  message.reply(
+    `🤖 Hello ${event.body}!`
+  );
 
-/help
-/info
-/owner
-/admin
-/ping
-/uptime
-/profile
-/groupinfo
-/settings
-
-Additional commands may be available depending on the installed modules and configuration.
+}
 
 
 ---
 
-🌐 API & TOOLS
+🌐 ◈ 12 — GITHUB
 
-⚡ API Integration
-🎵 Music Utilities
-📸 Image Processing
-🔎 Search System
-📥 Download System
-🎮 Games
-🧰 Utility Tools
-🤖 Automation
+<div align="center">🐙 MUSA BOT GITHUB
 
+<br><a href="https://github.com/musabot12"><img src="https://github-readme-stats.vercel.app/api?username=musabot12&show_icons=true&theme=tokyonight&hide_border=true&bg_color=050505&title_color=00FFF0&icon_color=FF00E5&text_color=FFFFFF"/></a><br><br>
 
+USERNAME
+
+musabot12
+
+PROJECT
+
+musa-bot
+
+</div>
 ---
 
-🎨 PREMIUM MUSA UI
+🔐 ◈ 13 — SECURITY
 
-╭────────────────────────────────────╮
-│        🌈 MUSA BOT SYSTEM 🌈       │
-├────────────────────────────────────┤
-│ 👑 OWNER      : ATIF IRFAN MUSA    │
-│ 🤖 BOT        : MUSA BOT           │
-│ 📍 LOCATION   : BOGURA              │
-│ 🎓 CLASS      : 10                  │
-│ 🔬 DEPARTMENT : SCIENCE             │
-│ 💙 STATUS     : SINGLE LIFE         │
-╰────────────────────────────────────╯
+Never upload private credentials to a public repository.
 
-
----
-
-🔥 WHY MUSA BOT?
-
-⚡ FAST
-
-Optimized command handling for a smooth bot experience.
-
-🧠 SMART
-
-Multiple utilities and automated features.
-
-🎮 FUN
-
-Games and entertainment commands.
-
-🛠️ POWERFUL
-
-Tools, APIs and group-management features.
-
-🌈 PREMIUM
-
-MUSA-themed branding and visual identity.
-
-
----
-
-📱 CONTACT
-
-👑 Owner : Atif Irfan Musa
-📱 Phone : 01334501977
-📍 Bogura, Bangladesh
-🎓 Class : 10
-💙 Status: Single Life
-
-
----
-
-⚠️ SECURITY
-
-Never publicly upload:
-
-❌ Account cookies
-❌ Access tokens
-❌ API keys
 ❌ Passwords
-❌ Private credentials
-❌ Database secrets
+❌ API Keys
+❌ Session Cookies
+❌ Access Tokens
+❌ Private Credentials
 
-Keep all private credentials inside your local/private configuration.
-
-
----
-
-📜 LICENSE
-
-This project should retain the original project's license and required upstream attribution.
-
-MUSA branding is used for this customized/forked version.
+Keep private configuration outside the public repository.
 
 
 ---
 
-💜 SPECIAL THANKS
+⚠️ ◈ 14 — DISCLAIMER
 
-Thanks to the open-source developers and contributors whose work makes projects like this possible.
+This project is intended for educational and development purposes.
 
-🌟 MUSA EDITION
+Use the software responsibly and follow the rules and terms of the services connected to the project.
 
-╔══════════════════════════════════════╗
-║            MUSA BOT                  ║
-║                                      ║
-║       👑 ATIF IRFAN MUSA             ║
-║                                      ║
-║       📍 BOGURA, BANGLADESH          ║
-║       🎓 CLASS 10 • SCIENCE          ║
-║       💙 SINGLE LIFE                 ║
-║                                      ║
-║       🚀 MUSA BOT — PREMIUM          ║
-╚══════════════════════════════════════╝
+Do not use it for unauthorized access, abuse, spam or illegal activity.
 
 
 ---
 
-<p align="center"><img src="https://capsule-render.vercel.app/api?type=waving&color=0:FF00FF,50:8A2BE2,100:00F5FF&height=140&section=footer&animation=twinkling"/></p><p align="center">💜 MADE & CUSTOMIZED BY ATIF IRFAN MUSA 💜
+📜 ◈ 15 — OPEN SOURCE
 
-</p>
+This project is based on open-source software.
+
+Please preserve the original copyright, license and attribution requirements of the underlying project.
+
+The MUSA BOT identity represents the customization and branding by Atif Irfan Musa.
+
+
+---
+
+👑 ◈ 16 — THE MUSA SIGNATURE
+
+<div align="center"><br><img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=900&size=34&duration=1800&pause=500&color=00FFF0&center=true&vCenter=true&width=900&height=80&lines=M;MU;MUS;MUSA;MUSA+BOT;ATIF+IRFAN+MUSA"/><br><br>
+
+╔══════════════════════════════════════════════╗
+║                                              ║
+║                 🤖 MUSA BOT                  ║
+║                                              ║
+║              ═══════════════                 ║
+║                                              ║
+║             👑 ATIF IRFAN MUSA               ║
+║                                              ║
+║             🐙 MUSABOT12                     ║
+║                                              ║
+║             📍 BOGURA, BD                    ║
+║                                              ║
+║       ⚡ FAST • SMART • POWERFUL             ║
+║                                              ║
+╚══════════════════════════════════════════════╝
+
+<br>✦ MUSA • MUSA BOT • MUSABOT12 ✦
+
+<br>THANK YOU FOR VISITING MUSA BOT
+
+<br><img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:00FFF0,25:00BFFF,50:7A2CFF,75:FF00E5,100:00FFF0&height=200&section=footer&animation=twinkling"/></div>
+```
