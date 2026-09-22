@@ -1,82 +1,74 @@
 <div align="center">
 
-<img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=700&size=18&duration=3000&pause=800&color=00FFD1&center=true&vCenter=true&width=700&lines=MUSA+BOT;Facebook+Messenger+Bot+Framework;Built+on+Goat+Bot+V2+%E2%80%94+Customized+by+Atif+Irfan+Musa;Fast+%E2%80%A2+Smart+%E2%80%A2+Reliable+%E2%80%A2+Powerful" />
+<br>
 
-<br/>
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:00FFD1,50:7C3AED,100:FF00FF&height=220&section=header&text=MUSA%20BOT&fontSize=70&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=ATIF%20IRFAN%20MUSA%20%7C%20PREMIUM%20MESSENGER%20BOT&descAlignY=58&descSize=20"/>
 
-![Version](https://img.shields.io/badge/Version-2.0.0-00FFD1?style=for-the-badge&logo=github&logoColor=black)
-![Node](https://img.shields.io/badge/Node.js-18.x-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![Base](https://img.shields.io/badge/Based_on-Goat_Bot_V2-FF6B6B?style=for-the-badge&logo=github&logoColor=white)
-![Fork](https://img.shields.io/badge/Customized_by-MUSA-9B59B6?style=for-the-badge&logo=github&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-musabot12-181717?style=for-the-badge&logo=github&logoColor=white)
+<br>
+
+<img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=800&size=25&duration=2600&pause=700&color=00FFD1&center=true&vCenter=true&width=950&height=65&lines=🤖+WELCOME+TO+MUSA+BOT;👑+ATIF+IRFAN+MUSA;⚡+FAST+%E2%80%A2+SMART+%E2%80%A2+POWERFUL;💎+PREMIUM+MESSENGER+BOT;🚀+BUILT+FOR+THE+NEXT+LEVEL" />
+
+<br><br>
+
+<img src="https://img.shields.io/badge/🤖%20MUSA%20BOT-00FFD1?style=for-the-badge&labelColor=050505"/>
+<img src="https://img.shields.io/badge/👑%20ATIF%20IRFAN%20MUSA-8A2BE2?style=for-the-badge&labelColor=050505"/>
+<img src="https://img.shields.io/badge/🐙%20musabot12-00FF88?style=for-the-badge&labelColor=050505"/>
+
+<br><br>
+
+<img src="https://img.shields.io/badge/NODE.JS-18.x-339933?style=for-the-badge&logo=nodedotjs&logoColor=white"/>
+<img src="https://img.shields.io/badge/STATUS-ONLINE-00FF88?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/VERSION-2.0.0-FF00FF?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/DESIGN-PREMIUM-00D9FF?style=for-the-badge"/>
+
+<br><br>
+
+[![GitHub](https://img.shields.io/badge/GitHub-musabot12-181717?style=for-the-badge&logo=github)](https://github.com/musabot12)
+[![Repository](https://img.shields.io/badge/Repository-MUSA--BOT-00FFD1?style=for-the-badge&logo=github)](https://github.com/musabot12/musa-bot)
+
+<br>
+
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=0:00FFD1,50:7C3AED,100:FF00FF&height=4&section=header"/>
 
 </div>
 
 ---
 
-## ◈ MUSA BOT
-
-Assalamu Alaikum! **MUSA BOT** is a customized Messenger bot project based on **Goat Bot V2**.
-
-This version is customized and branded by **Atif Irfan Musa (MUSA)**.
-
-| Feature | Description |
-|---|---|
-| 🤖 **MUSA BOT** | Custom MUSA-branded Messenger bot |
-| ⚙️ **Command System** | Supports custom bot commands |
-| 🌐 **Multi-Language** | Supports multiple languages depending on installed commands |
-| 🎨 **Custom UI** | Customized messages and bot branding |
-| 🛡️ **Admin System** | Role-based command permissions |
-| 🔧 **Settings** | Bot configuration through `config.json` |
-| 🚀 **Node.js** | Runs with Node.js 18.x |
-
-> ⚠️ This project is intended for educational and development purposes. Use it responsibly and follow the rules of the services you connect it to.
-
----
-
-## ◈ Owner / Developer
+# 🌌 MUSA BOT — PREMIUM EDITION
 
 <div align="center">
 
-### 👑 Atif Irfan Musa
+## `A PREMIUM PERSONAL MESSENGER BOT PROJECT`
 
-**MUSA BOT Developer**
-
-📍 Bogura, Bangladesh  
-🎓 Class 10 • Science  
-💫 Single Life  
-
-**GitHub:** `musabot12`
+### 🤖 MUSA BOT
+### 👑 ATIF IRFAN MUSA
+### 🐙 MUSABOT12
 
 </div>
 
 ---
 
-## ◈ Support
+## 💎 ◈ PROJECT INTRODUCTION
 
-<div align="center">
+**MUSA BOT** is a personalized and customized Messenger bot project
+branded around **Atif Irfan Musa**.
 
-[![GitHub](https://img.shields.io/badge/GitHub-musabot12-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/musabot12)
+The project focuses on a clean command architecture,
+custom bot identity, configurable permissions,
+modern presentation, and a premium **MUSA** visual identity.
 
-</div>
-
----
-
-## ◈ Credits
-
-| Role | Person | Link |
-|---|---|---|
-| 🏆 **Original Creator** | NTKhang | [Goat Bot V2](https://github.com/ntkhang03/Goat-Bot-V2) |
-| 🔧 **Customized / Maintained By** | Atif Irfan Musa | [MUSA BOT](https://github.com/musabot12/musa-bot) |
-
-> This project is based on Goat Bot V2. Original copyright and license information belong to the respective original authors. Please respect the original open-source license and attribution.
-
----
-
-## ◈ Setup
-
-```bash
-git clone https://github.com/musabot12/musa-bot.git
-cd musa-bot
-npm install
-node index.js
+```text
+╭────────────────────────────────────────────╮
+│                                            │
+│             🤖 MUSA BOT                    │
+│                                            │
+│        ╔══════════════════════╗            │
+│        ║  ATIF IRFAN MUSA     ║            │
+│        ╚══════════════════════╝            │
+│                                            │
+│       ⚡ FAST • SMART • POWERFUL           │
+│                                            │
+│       🐙 GitHub : musabot12                │
+│       📍 Bogura : Bangladesh               │
+│                                            │
+╰────────────────────────────────────────────╯
