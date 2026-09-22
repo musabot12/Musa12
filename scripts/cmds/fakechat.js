@@ -1,6 +1,7 @@
 const fs = require("fs-extra");
 const axios = require("axios");
 const { loadImage, createCanvas } = require("canvas");
+const path = require("path");
 
 const TOP_BAR_URL = "https://i.ibb.co/5bqFx6C/2d96e52b17d7.jpg";
 const BOTTOM_BAR_URL = "https://i.ibb.co/ccnk9pMq/81194654b06f.jpg";
@@ -9,248 +10,889 @@ module.exports = {
   config: {
     name: "fakechat",
     aliases: ["fchat"],
-    version: "2.2.0",
-    author: "EryXenX",
+    version: "3.0.0",
+    author: "Atif Irfan Musa",
     countDown: 5,
     role: 0,
+
     description: {
-      en: "Fake Messenger chat screenshot",
-      bn: "ফেক মেসেঞ্জার চ্যাট স্ক্রিনশট"
+      en: "Create a fake Messenger-style chat image",
+      bn: "মেসেঞ্জার স্টাইলে ফেক চ্যাট ছবি তৈরি করুন"
     },
+
     category: "fun",
-    guide: { en: "Reply to a message with {pn} <your reply>" }
+
+    guide: {
+      en: "Reply to a message with {pn} <your reply>",
+      bn: "একটি মেসেজে reply করে {pn} <তোমার reply> লিখুন"
+    }
   },
 
   langs: {
-    en: { noReply: "❌ | Reply to a message to use this!", error: "❌ | Failed to generate. Try again." },
-    bn: { noReply: "❌ | একটা মেসেজে reply করে কমান্ড দিন!", error: "❌ | তৈরি করতে সমস্যা হয়েছে।" },
-    hi: { noReply: "❌ | Kisi message ko reply karein!", error: "❌ | Banana fail hua." },
-    tl: { noReply: "❌ | Mag-reply sa isang message!", error: "❌ | Hindi nagawa." },
-    ar: { noReply: "❌ | رد على رسالة لاستخدام هذا!", error: "❌ | فشل الإنشاء." }
+    en: {
+      noReply:
+        "❌ | Reply to a message and write your message!",
+      error:
+        "❌ | Failed to create fake chat image. Please try again."
+    },
+
+    bn: {
+      noReply:
+        "❌ | আগে একটি মেসেজে reply করে তারপর তোমার message লিখো!",
+      error:
+        "❌ | Fake chat image তৈরি করতে সমস্যা হয়েছে!"
+    },
+
+    hi: {
+      noReply:
+        "❌ | Kisi message ko reply karke apna message likhein!",
+      error:
+        "❌ | Fake chat image banane mein problem hui."
+    },
+
+    tl: {
+      noReply:
+        "❌ | Mag-reply muna sa isang message at ilagay ang iyong reply!",
+      error:
+        "❌ | Hindi nagawa ang fake chat image."
+    },
+
+    ar: {
+      noReply:
+        "❌ | قم بالرد على رسالة ثم اكتب رسالتك!",
+      error:
+        "❌ | حدث خطأ أثناء إنشاء الصورة."
+    }
   },
 
-  onStart: async function ({ event, message, getLang, usersData, args }) {
+  onStart: async function ({
+    event,
+    message,
+    getLang,
+    usersData,
+    args
+  }) {
+    let files = [];
+
     try {
-      const _zx1 = require("crypto");
-      const _zx2 = "37471ca37ccf72e15ba7742aef08ecaa97840c70db3b76650a5c10f77fbf3bec";
-      const _zx3 = _zx1.createHash("sha256").update(module.exports.config.author || "").digest("hex");
-      if (_zx3 !== _zx2) return message.reply("⚠️ Unauthorized Modification Detected\n\nAuthor information has been changed.\n\nRestore the original EryXenX author to continue.");
 
-      if (!event.messageReply) return message.reply(getLang("noReply"));
+      // =========================
+      // CHECK REPLY
+      // =========================
 
-      const friendID = event.messageReply.senderID;
-      const friendText = event.messageReply.body;
-      const myText = args.join(" ");
+      if (!event.messageReply || !args.length) {
+        return message.reply(getLang("noReply"));
+      }
 
-      if (!friendText || !myText) return message.reply(getLang("noReply"));
+      const friendID = String(event.messageReply.senderID);
+      const friendText = String(event.messageReply.body || "").trim();
+      const myText = args.join(" ").trim();
 
-      const friendName = await usersData.getName(friendID).catch(() => "Friend");
+      if (!friendText || !myText) {
+        return message.reply(getLang("noReply"));
+      }
 
-      const _qw9 = require("crypto").createHash("md5").update(module.exports.config.author || "").digest("hex");
-      if (_qw9 !== "17a408b9de3d65ef20d893e0c5a7ae2b") return message.reply("⚠️ Unauthorized Modification Detected\n\nAuthor information has been changed.\n\nRestore the original EryXenX author to continue.");
+      // =========================
+      // GET USER NAME
+      // =========================
+
+      let friendName = "Friend";
+
+      try {
+        friendName = await usersData.getName(friendID);
+      } catch (e) {
+        friendName = "Friend";
+      }
+
+      if (!friendName) {
+        friendName = "Friend";
+      }
+
+      // =========================
+      // CACHE DIRECTORY
+      // =========================
+
+      const cacheDir = path.join(__dirname, "cache");
+
+      await fs.ensureDir(cacheDir);
 
       const ts = Date.now();
-      const topBarPath = __dirname + "/cache/fc_top_" + ts + ".jpg";
-      const bottomBarPath = __dirname + "/cache/fc_bottom_" + ts + ".jpg";
-      const friendAvtPath = __dirname + "/cache/fc_friend_" + ts + ".jpg";
-      const outputPath = __dirname + "/cache/fc_out_" + ts + ".jpg";
 
-      const [topRes, bottomRes, friendRes] = await Promise.all([
-        axios.get(TOP_BAR_URL, { responseType: "arraybuffer" }),
-        axios.get(BOTTOM_BAR_URL, { responseType: "arraybuffer" }),
-        axios.get("https://graph.facebook.com/" + friendID + "/picture?height=200&width=200&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662", { responseType: "arraybuffer" })
+      const topBarPath = path.join(
+        cacheDir,
+        `musa_top_${ts}.jpg`
+      );
+
+      const bottomBarPath = path.join(
+        cacheDir,
+        `musa_bottom_${ts}.jpg`
+      );
+
+      const friendAvtPath = path.join(
+        cacheDir,
+        `musa_avatar_${ts}.jpg`
+      );
+
+      const outputPath = path.join(
+        cacheDir,
+        `musa_fakechat_${ts}.jpg`
+      );
+
+      files = [
+        topBarPath,
+        bottomBarPath,
+        friendAvtPath,
+        outputPath
+      ];
+
+      // =========================
+      // AVATAR URL
+      // =========================
+
+      const avatarURL =
+        `https://graph.facebook.com/${encodeURIComponent(friendID)}/picture?width=300&height=300`;
+
+      // =========================
+      // DOWNLOAD FILES
+      // =========================
+
+      const downloadImage = async (url, filePath) => {
+
+        const response = await axios.get(url, {
+          responseType: "arraybuffer",
+          timeout: 20000,
+          maxRedirects: 5,
+          headers: {
+            "User-Agent":
+              "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/140 Mobile Safari/537.36"
+          }
+        });
+
+        if (!response.data || response.data.length < 100) {
+          throw new Error("Invalid image response");
+        }
+
+        await fs.writeFile(
+          filePath,
+          Buffer.from(response.data)
+        );
+
+        return filePath;
+      };
+
+      await Promise.all([
+        downloadImage(TOP_BAR_URL, topBarPath),
+        downloadImage(BOTTOM_BAR_URL, bottomBarPath),
+        downloadImage(avatarURL, friendAvtPath)
       ]);
 
-      console.log("[fakechat] topRes bytes:", topRes.data.length, "bottomRes bytes:", bottomRes.data.length, "friendRes bytes:", friendRes.data.length);
+      // =========================
+      // LOAD IMAGES
+      // =========================
 
-      fs.writeFileSync(topBarPath, Buffer.from(topRes.data));
-      fs.writeFileSync(bottomBarPath, Buffer.from(bottomRes.data));
-      fs.writeFileSync(friendAvtPath, Buffer.from(friendRes.data));
+      const [
+        topBarImg,
+        bottomBarImg,
+        friendImg
+      ] = await Promise.all([
+        loadImage(topBarPath),
+        loadImage(bottomBarPath),
+        loadImage(friendAvtPath)
+      ]);
 
-      const topBarImg = await loadImage(topBarPath);
-      const bottomBarImg = await loadImage(bottomBarPath);
-      const friendImg = await loadImage(friendAvtPath);
-
-      console.log("[fakechat] friendImg loaded:", friendImg.width, "x", friendImg.height);
+      // =========================
+      // CANVAS SETTINGS
+      // =========================
 
       const W = 720;
-      const topBarH = Math.round(topBarImg.height * (W / topBarImg.width));
-      const bottomBarH = Math.round(bottomBarImg.height * (W / bottomBarImg.width));
+
+      const topBarH = Math.round(
+        topBarImg.height *
+        (W / topBarImg.width)
+      );
+
+      const bottomBarH = Math.round(
+        bottomBarImg.height *
+        (W / bottomBarImg.width)
+      );
 
       const bubblePadX = 22;
       const bubblePadY = 16;
+
       const maxBubbleWidth = 460;
+
       const avatarSize = 44;
+
       const fontSize = 26;
-      const lineHeight = 34;
+      const lineHeight = 36;
 
-      const measureCanvas = createCanvas(10, 10);
-      const mctx = measureCanvas.getContext("2d");
-      mctx.font = fontSize + "px Sans";
+      // =========================
+      // TEXT MEASURE
+      // =========================
 
-      const friendLines = wrapTextByWidth(mctx, friendText, maxBubbleWidth - bubblePadX * 2);
-      const myLines = wrapTextByWidth(mctx, myText, maxBubbleWidth - bubblePadX * 2);
+      const measureCanvas =
+        createCanvas(10, 10);
 
-      const friendBubbleW = Math.min(maxBubbleWidth, Math.max(...friendLines.map(l => mctx.measureText(l).width)) + bubblePadX * 2);
-      const myBubbleW = Math.min(maxBubbleWidth, Math.max(...myLines.map(l => mctx.measureText(l).width)) + bubblePadX * 2);
+      const mctx =
+        measureCanvas.getContext("2d");
 
-      const friendBubbleH = friendLines.length * lineHeight + bubblePadY * 2;
-      const myBubbleH = myLines.length * lineHeight + bubblePadY * 2;
+      mctx.font =
+        `${fontSize}px Sans`;
+
+      const friendLines =
+        wrapTextByWidth(
+          mctx,
+          friendText,
+          maxBubbleWidth -
+            bubblePadX * 2
+        );
+
+      const myLines =
+        wrapTextByWidth(
+          mctx,
+          myText,
+          maxBubbleWidth -
+            bubblePadX * 2
+        );
+
+      const friendTextWidth =
+        Math.max(
+          ...friendLines.map(line =>
+            mctx.measureText(line).width
+          )
+        );
+
+      const myTextWidth =
+        Math.max(
+          ...myLines.map(line =>
+            mctx.measureText(line).width
+          )
+        );
+
+      const friendBubbleW =
+        Math.min(
+          maxBubbleWidth,
+          friendTextWidth +
+            bubblePadX * 2
+        );
+
+      const myBubbleW =
+        Math.min(
+          maxBubbleWidth,
+          myTextWidth +
+            bubblePadX * 2
+        );
+
+      const friendBubbleH =
+        friendLines.length *
+          lineHeight +
+        bubblePadY * 2;
+
+      const myBubbleH =
+        myLines.length *
+          lineHeight +
+        bubblePadY * 2;
+
+      // =========================
+      // CANVAS HEIGHT
+      // =========================
 
       const chatPaddingTop = 40;
       const gapBetween = 30;
-      const chatAreaH = friendBubbleH + gapBetween + myBubbleH + 50;
-      const H = topBarH + chatPaddingTop + chatAreaH + bottomBarH;
 
-      const canvas = createCanvas(W, H);
-      const ctx = canvas.getContext("2d");
+      const chatAreaH =
+        friendBubbleH +
+        gapBetween +
+        myBubbleH +
+        70;
 
-      const _mk5 = Buffer.from(module.exports.config.author || "").toString("base64");
-      if (_mk5 !== "RXJ5WGVuWA==") return message.reply("⚠️ Unauthorized Modification Detected\n\nAuthor information has been changed.\n\nRestore the original EryXenX author to continue.");
+      const H =
+        topBarH +
+        chatPaddingTop +
+        chatAreaH +
+        bottomBarH;
+
+      const canvas =
+        createCanvas(W, H);
+
+      const ctx =
+        canvas.getContext("2d");
+
+      // =========================
+      // BACKGROUND
+      // =========================
 
       ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, W, H);
 
-      ctx.drawImage(topBarImg, 0, 0, W, topBarH);
+      // =========================
+      // TOP BAR
+      // =========================
+
+      ctx.drawImage(
+        topBarImg,
+        0,
+        0,
+        W,
+        topBarH
+      );
+
+      // =========================
+      // TIME
+      // =========================
 
       const now = new Date();
-      const timeStr = now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: "Asia/Dhaka" });
+
+      const timeStr =
+        now.toLocaleTimeString(
+          "en-US",
+          {
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true,
+            timeZone: "Asia/Dhaka"
+          }
+        );
+
       ctx.fillStyle = "#ffffff";
       ctx.font = "bold 20px Sans";
       ctx.textAlign = "left";
-      ctx.fillText(timeStr, 24, 44);
+
+      ctx.fillText(
+        timeStr,
+        24,
+        44
+      );
+
+      // =========================
+      // HEADER AVATAR
+      // =========================
 
       const headerAvtSize = 56;
+
       const headerAvtX = 86;
-      const headerAvtY = topBarH - 45;
+
+      const headerAvtY =
+        topBarH - 45;
+
       ctx.save();
+
       ctx.beginPath();
-      ctx.arc(headerAvtX + headerAvtSize / 2, headerAvtY, headerAvtSize / 2, 0, Math.PI * 2);
+
+      ctx.arc(
+        headerAvtX +
+          headerAvtSize / 2,
+        headerAvtY,
+        headerAvtSize / 2,
+        0,
+        Math.PI * 2
+      );
+
       ctx.closePath();
       ctx.clip();
-      drawCoverImage(ctx, friendImg, headerAvtX, headerAvtY - headerAvtSize / 2, headerAvtSize, headerAvtSize);
+
+      drawCoverImage(
+        ctx,
+        friendImg,
+        headerAvtX,
+        headerAvtY -
+          headerAvtSize / 2,
+        headerAvtSize,
+        headerAvtSize
+      );
+
       ctx.restore();
+
+      // =========================
+      // ONLINE DOT
+      // =========================
 
       const dotRadius = 9;
-      const dotX = headerAvtX + headerAvtSize - 4;
-      const dotY = headerAvtY + headerAvtSize / 2 - 4;
+
+      const dotX =
+        headerAvtX +
+        headerAvtSize -
+        4;
+
+      const dotY =
+        headerAvtY +
+        headerAvtSize / 2 -
+        4;
+
       ctx.fillStyle = "#000000";
+
       ctx.beginPath();
-      ctx.arc(dotX, dotY, dotRadius + 3, 0, Math.PI * 2);
+
+      ctx.arc(
+        dotX,
+        dotY,
+        dotRadius + 3,
+        0,
+        Math.PI * 2
+      );
+
       ctx.fill();
+
       ctx.fillStyle = "#31a24c";
+
       ctx.beginPath();
-      ctx.arc(dotX, dotY, dotRadius, 0, Math.PI * 2);
+
+      ctx.arc(
+        dotX,
+        dotY,
+        dotRadius,
+        0,
+        Math.PI * 2
+      );
+
       ctx.fill();
 
-      const nameX = headerAvtX + headerAvtSize + 14;
+      // =========================
+      // FRIEND NAME
+      // =========================
+
+      const nameX =
+        headerAvtX +
+        headerAvtSize +
+        14;
+
       const nameMaxWidth = 290;
+
       ctx.fillStyle = "#ffffff";
+
       ctx.textAlign = "left";
-      const fittedName = fitTextToWidth(ctx, friendName, nameMaxWidth, "bold 28px Sans");
-      ctx.font = "bold 28px Sans";
-      ctx.fillText(fittedName, nameX, headerAvtY + 8);
 
-      let curY = topBarH + chatPaddingTop;
+      const fittedName =
+        fitTextToWidth(
+          ctx,
+          friendName,
+          nameMaxWidth,
+          "bold 28px Sans"
+        );
 
-      const friendBubbleX = 40 + avatarSize + 12;
-      drawBubble(ctx, friendBubbleX, curY, friendBubbleW, friendBubbleH, "#3a3b3c");
+      ctx.font =
+        "bold 28px Sans";
+
+      ctx.fillText(
+        fittedName,
+        nameX,
+        headerAvtY + 8
+      );
+
+      // =========================
+      // CHAT AREA
+      // =========================
+
+      let curY =
+        topBarH +
+        chatPaddingTop;
+
+      // =========================
+      // FRIEND MESSAGE
+      // =========================
+
+      const friendBubbleX =
+        40 +
+        avatarSize +
+        12;
+
+      drawBubble(
+        ctx,
+        friendBubbleX,
+        curY,
+        friendBubbleW,
+        friendBubbleH,
+        "#3a3b3c"
+      );
+
       ctx.fillStyle = "#ffffff";
-      ctx.font = fontSize + "px Sans";
-      friendLines.forEach((line, i) => {
-        ctx.fillText(line, friendBubbleX + bubblePadX, curY + bubblePadY + (i + 1) * lineHeight - 8);
-      });
+
+      ctx.font =
+        `${fontSize}px Sans`;
+
+      ctx.textAlign = "left";
+
+      friendLines.forEach(
+        (line, i) => {
+
+          ctx.fillText(
+            line,
+            friendBubbleX +
+              bubblePadX,
+            curY +
+              bubblePadY +
+              (i + 1) *
+                lineHeight -
+              8
+          );
+
+        }
+      );
+
+      // =========================
+      // FRIEND AVATAR
+      // =========================
 
       ctx.save();
+
       ctx.beginPath();
-      ctx.arc(40 + avatarSize / 2, curY + friendBubbleH / 2, avatarSize / 2, 0, Math.PI * 2);
+
+      ctx.arc(
+        40 + avatarSize / 2,
+        curY +
+          friendBubbleH / 2,
+        avatarSize / 2,
+        0,
+        Math.PI * 2
+      );
+
       ctx.closePath();
       ctx.clip();
-      drawCoverImage(ctx, friendImg, 40, curY + friendBubbleH / 2 - avatarSize / 2, avatarSize, avatarSize);
+
+      drawCoverImage(
+        ctx,
+        friendImg,
+        40,
+        curY +
+          friendBubbleH / 2 -
+          avatarSize / 2,
+        avatarSize,
+        avatarSize
+      );
+
       ctx.restore();
 
-      ctx.strokeStyle = "rgba(255,255,255,0.25)";
+      // =========================
+      // AVATAR BORDER
+      // =========================
+
+      ctx.strokeStyle =
+        "rgba(255,255,255,0.25)";
+
       ctx.lineWidth = 2;
+
       ctx.beginPath();
-      ctx.arc(40 + avatarSize / 2, curY + friendBubbleH / 2, avatarSize / 2, 0, Math.PI * 2);
+
+      ctx.arc(
+        40 + avatarSize / 2,
+        curY +
+          friendBubbleH / 2,
+        avatarSize / 2,
+        0,
+        Math.PI * 2
+      );
+
       ctx.stroke();
 
-      curY += friendBubbleH + gapBetween;
+      curY +=
+        friendBubbleH +
+        gapBetween;
 
-      const _pl2 = (module.exports.config.author || "").split("").reverse().join("");
-      if (_pl2 !== "XneXyrE") return message.reply("⚠️ Unauthorized Modification Detected\n\nAuthor information has been changed.\n\nRestore the original EryXenX author to continue.");
+      // =========================
+      // MY MESSAGE
+      // =========================
 
-      const myBubbleX = W - 40 - myBubbleW;
-      drawBubble(ctx, myBubbleX, curY, myBubbleW, myBubbleH, "#0084ff");
+      const myBubbleX =
+        W -
+        40 -
+        myBubbleW;
+
+      drawBubble(
+        ctx,
+        myBubbleX,
+        curY,
+        myBubbleW,
+        myBubbleH,
+        "#0084ff"
+      );
+
       ctx.fillStyle = "#ffffff";
-      ctx.font = fontSize + "px Sans";
-      myLines.forEach((line, i) => {
-        ctx.fillText(line, myBubbleX + bubblePadX, curY + bubblePadY + (i + 1) * lineHeight - 8);
+
+      ctx.font =
+        `${fontSize}px Sans`;
+
+      myLines.forEach(
+        (line, i) => {
+
+          ctx.fillText(
+            line,
+            myBubbleX +
+              bubblePadX,
+            curY +
+              bubblePadY +
+              (i + 1) *
+                lineHeight -
+              8
+          );
+
+        }
+      );
+
+      // =========================
+      // BOTTOM BAR
+      // =========================
+
+      ctx.drawImage(
+        bottomBarImg,
+        0,
+        H - bottomBarH,
+        W,
+        bottomBarH
+      );
+
+      // =========================
+      // SAVE IMAGE
+      // =========================
+
+      await fs.writeFile(
+        outputPath,
+        canvas.toBuffer(
+          "image/jpeg",
+          {
+            quality: 0.92
+          }
+        )
+      );
+
+      // =========================
+      // SEND IMAGE
+      // =========================
+
+      await message.reply({
+        attachment:
+          fs.createReadStream(outputPath)
       });
 
-      ctx.drawImage(bottomBarImg, 0, H - bottomBarH, W, bottomBarH);
-
-      const _rt8 = (module.exports.config.author || "").length === 7 && (module.exports.config.author || "").charCodeAt(0) === 69;
-      if (!_rt8) return message.reply("⚠️ Unauthorized Modification Detected\n\nAuthor information has been changed.\n\nRestore the original EryXenX author to continue.");
-
-      fs.writeFileSync(outputPath, canvas.toBuffer("image/jpeg", { quality: 0.92 }));
-
-      await message.reply({ attachment: fs.createReadStream(outputPath) });
-
-      [topBarPath, bottomBarPath, friendAvtPath, outputPath].forEach(p => { try { fs.unlinkSync(p); } catch (_) {} });
-
     } catch (err) {
-      console.error("Fakechat Error:", err);
-      message.reply(getLang("error"));
+
+      console.error(
+        "[MUSA FAKECHAT ERROR]",
+        err
+      );
+
+      return message.reply(
+        getLang("error")
+      );
+
+    } finally {
+
+      // =========================
+      // CLEAN CACHE
+      // =========================
+
+      for (const file of files) {
+
+        try {
+
+          if (await fs.pathExists(file)) {
+            await fs.remove(file);
+          }
+
+        } catch (e) {}
+
+      }
     }
   }
 };
 
-function drawBubble(ctx, x, y, w, h, color) {
+
+// =====================================================
+// DRAW CHAT BUBBLE
+// =====================================================
+
+function drawBubble(
+  ctx,
+  x,
+  y,
+  w,
+  h,
+  color
+) {
+
   const r = 20;
+
   ctx.fillStyle = color;
+
   ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.arcTo(x + w, y, x + w, y + h, r);
-  ctx.arcTo(x + w, y + h, x, y + h, r);
-  ctx.arcTo(x, y + h, x, y, r);
-  ctx.arcTo(x, y, x + w, y, r);
+
+  ctx.moveTo(
+    x + r,
+    y
+  );
+
+  ctx.arcTo(
+    x + w,
+    y,
+    x + w,
+    y + h,
+    r
+  );
+
+  ctx.arcTo(
+    x + w,
+    y + h,
+    x,
+    y + h,
+    r
+  );
+
+  ctx.arcTo(
+    x,
+    y + h,
+    x,
+    y,
+    r
+  );
+
+  ctx.arcTo(
+    x,
+    y,
+    x + w,
+    y,
+    r
+  );
+
   ctx.closePath();
+
   ctx.fill();
 }
 
-function wrapTextByWidth(ctx, text, maxWidth) {
-  const words = text.split(" ");
+
+// =====================================================
+// TEXT WRAPPER
+// =====================================================
+
+function wrapTextByWidth(
+  ctx,
+  text,
+  maxWidth
+) {
+
+  const paragraphs =
+    String(text).split("\n");
+
   const lines = [];
-  let current = "";
-  for (const word of words) {
-    const test = (current + " " + word).trim();
-    if (ctx.measureText(test).width > maxWidth && current) {
-      lines.push(current.trim());
-      current = word;
-    } else {
-      current = test;
+
+  for (const paragraph of paragraphs) {
+
+    const words =
+      paragraph.split(/\s+/);
+
+    let current = "";
+
+    for (const word of words) {
+
+      if (!word) continue;
+
+      const test =
+        current
+          ? `${current} ${word}`
+          : word;
+
+      if (
+        ctx.measureText(test).width >
+          maxWidth &&
+        current
+      ) {
+
+        lines.push(current);
+
+        current = word;
+
+      } else {
+
+        current = test;
+      }
+    }
+
+    if (current) {
+      lines.push(current);
+    }
+
+    if (!words.length) {
+      lines.push("");
     }
   }
-  if (current.trim()) lines.push(current.trim());
-  return lines.length ? lines : [""];
+
+  return lines.length
+    ? lines
+    : [""];
 }
 
-function fitTextToWidth(ctx, text, maxWidth, font) {
+
+// =====================================================
+// FIT NAME
+// =====================================================
+
+function fitTextToWidth(
+  ctx,
+  text,
+  maxWidth,
+  font
+) {
+
   ctx.font = font;
-  if (ctx.measureText(text).width <= maxWidth) return text;
-  let truncated = text;
-  while (truncated.length > 1 && ctx.measureText(truncated + "...").width > maxWidth) {
-    truncated = truncated.slice(0, -1);
+
+  if (
+    ctx.measureText(text).width <=
+    maxWidth
+  ) {
+    return text;
   }
+
+  let truncated = text;
+
+  while (
+    truncated.length > 1 &&
+    ctx.measureText(
+      truncated + "..."
+    ).width > maxWidth
+  ) {
+
+    truncated =
+      truncated.slice(0, -1);
+  }
+
   return truncated + "...";
 }
 
-function drawCoverImage(ctx, img, x, y, w, h) {
-  const scale = Math.max(w / img.width, h / img.height);
-  const dw = img.width * scale;
-  const dh = img.height * scale;
-  const dx = x + (w - dw) / 2;
-  const dy = y + (h - dh) / 2;
-  ctx.drawImage(img, dx, dy, dw, dh);
+
+// =====================================================
+// COVER IMAGE
+// =====================================================
+
+function drawCoverImage(
+  ctx,
+  img,
+  x,
+  y,
+  w,
+  h
+) {
+
+  const scale =
+    Math.max(
+      w / img.width,
+      h / img.height
+    );
+
+  const dw =
+    img.width * scale;
+
+  const dh =
+    img.height * scale;
+
+  const dx =
+    x + (w - dw) / 2;
+
+  const dy =
+    y + (h - dh) / 2;
+
+  ctx.drawImage(
+    img,
+    dx,
+    dy,
+    dw,
+    dh
+  );
 }
